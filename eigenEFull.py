@@ -85,7 +85,7 @@ def eigenEF(rin,
     D[n-1,:] = D[n-2,:]
     D2 = np.zeros(shape=(n,n))
     for i in range(1,n-1):
-        D2[i,i-1] = 1/dX**2    #-
+        D2[i,i-1] = 1/dX**2
         D2[i,i] = -2*1/dX**2
         D2[i,i+1] = 1/dX**2
     D2[0,0] = -2*1/dX**2
@@ -94,7 +94,7 @@ def eigenEF(rin,
     D2[n-1,n-2] = 1/dX**2
     
     # Distributions
-    # You can import your own surface density and sound speed distribution. The vars dictionary contains the useful physical information from the code.
+    # You can import your own surface density and sound speed distribution. The Vars dictionary contains the useful physical information from the code.
     Vars = {'rin' : rin,
              'rout' : rout,
              'eps' : eps,
@@ -284,11 +284,11 @@ def eigenEF(rin,
             break
         PLR1 = 2j*q**2*sum(PLR[i,m] for m in range(3,11))
         PCR1 = 2j*q**2*sum(PCR[i,m] for m in range(2,10))
-        G2 = -1/2*ap**(-2)*q*s[i]*LC(3/2,2,ap/r[i])  #betafind.beta(r[i],ap,eps)
+        G2 = -1/2*ap**(-2)*q*s[i]*LC(3/2,2,betafind.beta(r[i], ap, 0))
         M[i,n] = (PLR1 + PCR1 + G2)/(2*s[i])*r[i]**(1/2)
 
     if q != 0:
-        BETA = ap/r          #betafind.beta(r,ap,eps)
+        BETA = betafind.beta(r, ap, 0)
         PG1 = q**(-1/2)*qd*pi/ap**(3/2)*sum(s[k]*BETA[k]**(3/2)*r[k]**(3/2)*LC(3/2,1,BETA[k]) for k in range(n))*dX
         PL2 = q**(1/2)*qd*sum(PL1[m] for m in range(3,11))
         PC2 = q**(1/2)*qd*sum(PC1[m] for m in range(2,10))
